@@ -105,32 +105,6 @@ class ToDoListApp extends StatelessWidget {
     );
   }
 }
-      // home: ToDoListScreen(),
-//       body: ToDoListScreen(),
-//       bottomNavigationBar: Container(
-//         height: 60,
-//         color: primaryColor,
-//         child: Center(
-//           child: GestureDetector(
-//             onTap: () {
-//               launch('https://lightraptor2310.github.io/to-do-list/');
-//             },
-//             child: Text(
-//               'Original code from Lightraptor Todo-list',
-//               style: TextStyle(
-//                 color: Colors.white,
-//                 fontSize: 14,
-//                 fontStyle: FontStyle.italic,
-//                 decoration: TextDecoration.underline,
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     // ),
-//     );
-//   }
-// }
 
 class ToDoListScreen extends StatefulWidget {
   @override
@@ -139,8 +113,7 @@ class ToDoListScreen extends StatefulWidget {
 
 class _ToDoListScreenState extends State<ToDoListScreen> {
   TextEditingController _inputController = TextEditingController();
-  List<String> _tasks = [];
-  List<bool> _taskCompleted = [];
+  List<Task> _tasks = [];
   int _editingIndex = -1;
   TextEditingController _editingController = TextEditingController();
 
@@ -149,8 +122,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
     if (taskName.isNotEmpty) {
       setState(() {
-        _tasks.add(taskName);
-        _taskCompleted.add(false); // Initialize task completion status
+        _tasks.add(Task(name: taskName, completed: false));
         _inputController.clear();
       });
     }
@@ -158,16 +130,21 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
 
   void _editTask(int index, String newTaskName) {
     setState(() {
-      _tasks[index] = newTaskName;
+      _tasks[index].name = newTaskName;
       _editingIndex = -1;
       _editingController.clear();
+    });
+  }
+
+  void _toggleTask(int index) {
+    setState(() {
+      _tasks[index].completed = !_tasks[index].completed;
     });
   }
 
   void _deleteTask(int index) {
     setState(() {
       _tasks.removeAt(index);
-      _taskCompleted.removeAt(index); // Remove task completion status
       if (_editingIndex == index) {
         _editingIndex = -1;
         _editingController.clear();
@@ -175,146 +152,108 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     });
   }
 
-  void _toggleTaskCompletion(int index) {
-    setState(() {
-      _taskCompleted[index] = !_taskCompleted[index];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text.rich(
-          TextSpan(
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
             children: [
-              ColoredTextSpan(
-                text: '2',
-                color: Color(0xFFEB4382),
+              Expanded(
+                child: TextField(
+                  controller: _inputController,
+                  decoration: InputDecoration(
+                    hintText: 'Add your text',
+                  ),
+                  onSubmitted: (_) => _addTask(),
+                ),
               ),
-              ColoredTextSpan(
-                text: 'D',
-                color: Color(0xFFDBB0DB),
-              ),
-              ColoredTextSpan(
-                text: 'o',
-                color: Color(0xFF2FC3F1),
-              ),
-              ColoredTextSpan(
-                text: ' ',
-                color: Color(0xFFFAE881),
-              ),
-              ColoredTextSpan(
-                text: 'L',
-                color: Color(0xFFE678AB),
-              ),
-              ColoredTextSpan(
-                text: 'i',
-                color: Color(0xFF5DDBD7),
-              ),
-              ColoredTextSpan(
-                text: 's',
-                color: Color(0xFF8CDE89),
-              ),
-              ColoredTextSpan(
-                text: 't',
-                color: Color(0xFFEB4382),
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: _addTask,
               ),
             ],
           ),
         ),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _inputController,
+        Expanded(
+          child: ListView.builder(
+            itemCount: _tasks.length,
+            itemBuilder: (context, index) {
+              if (_editingIndex == index) {
+                return ListTile(
+                  title: TextField(
+                    controller: _editingController,
                     decoration: InputDecoration(
-                      hintText: 'Add your text',
+                      hintText: 'Edit task',
                     ),
-                    onSubmitted: (_) => _addTask(),
+                    autofocus: true,
+                    onSubmitted: (newTaskName) => _editTask(index, newTaskName),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: _addTask,
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _tasks.length,
-              itemBuilder: (context, index) {
-                if (_editingIndex == index) {
-                  return ListTile(
-                    title: TextField(
-                      controller: _editingController,
-                      decoration: InputDecoration(
-                        hintText: 'Edit task',
-                      ),
-                      autofocus: true,
-                      onSubmitted: (newTaskName) => _editTask(index, newTaskName),
+                  trailing: IconButton(
+                    icon: Icon(Icons.check),
+                    onPressed: () => _editTask(index, _editingController.text.trim()),
+                  ),
+                );
+              } else {
+                return ListTile(
+                  leading: Checkbox(
+                    value: _tasks[index].completed,
+                    onChanged: (_) => _toggleTask(index),
+                  ),
+                  title: Text(
+                    _tasks[index].name,
+                    style: TextStyle(
+                      decoration: _tasks[index].completed ? TextDecoration.lineThrough : TextDecoration.none,
                     ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.check),
-                      onPressed: () => _editTask(index, _editingController.text.trim()),
-                    ),
-                  );
-                } else {
-                  return ListTile(
-                    leading: Checkbox(
-                      value: _taskCompleted[index],
-                      onChanged: (value) => _toggleTaskCompletion(index),
-                    ),
-                    title: Text(
-                      _tasks[index],
-                      style: TextStyle(
-                        decoration: _taskCompleted[index] ? TextDecoration.lineThrough : TextDecoration.none,
-                      ),
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            setState(() {
-                              _editingIndex = index;
-                              _editingController.text = _tasks[index];
-                              Future.delayed(Duration.zero, () {
-                                _editingController.selection = TextSelection.fromPosition(TextPosition(offset: _editingController.text.length));
-                              });
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {
+                          setState(() {
+                            _editingIndex = index;
+                            _editingController.text = _tasks[index].name;
+                            Future.delayed(Duration.zero, () {
+                              _editingController.selection = TextSelection.fromPosition(TextPosition(offset: _editingController.text.length));
                             });
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => _deleteTask(index),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
-            ),
+                          });
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () => _deleteTask(index),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
 class ColoredTextSpan extends TextSpan {
   ColoredTextSpan({
-    required String text, // Mark 'text' parameter as required
+    required String text,
     required Color color,
   }) : super(
     text: text,
     style: TextStyle(color: color),
   );
+}
+
+class Task {
+  String name;
+  bool completed;
+
+  Task({
+    required this.name,
+    required this.completed,
+  });
 }
