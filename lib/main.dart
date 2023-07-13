@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(ToDoListApp());
@@ -11,7 +10,13 @@ class ToDoListApp extends StatelessWidget {
     return MaterialApp(
       title: 'To Do List',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink, // Replace with desired primary color
+        scaffoldBackgroundColor: Color(0xFFE2D3F2), // Replace with BTS color
+        textTheme: TextTheme(
+          bodyText2: TextStyle(
+            fontFamily: 'Roboto Mono',
+          ),
+        ),
       ),
       home: ToDoListScreen(),
     );
@@ -30,19 +35,19 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   TextEditingController _editingController = TextEditingController();
 
   void _addTask() {
-    String task = _inputController.text.trim();
+    String taskName = _inputController.text.trim();
 
-    if (task.isNotEmpty) {
+    if (taskName.isNotEmpty) {
       setState(() {
-        _tasks.add(task);
+        _tasks.add(taskName);
         _inputController.clear();
       });
     }
   }
 
-  void _editTask(int index, String newTask) {
+  void _editTask(int index, String newTaskName) {
     setState(() {
-      _tasks[index] = newTask;
+      _tasks[index] = newTaskName;
       _editingIndex = -1;
       _editingController.clear();
     });
@@ -62,7 +67,14 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('2Do List'),
+        title: Text(
+          '2Do List',
+          style: TextStyle(
+            color: Color(0xFFEB4382), // Replace with desired color
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -98,7 +110,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                         hintText: 'Edit task',
                       ),
                       autofocus: true,
-                      onSubmitted: (newTask) => _editTask(index, newTask),
+                      onSubmitted: (newTaskName) => _editTask(index, newTaskName),
                     ),
                     trailing: IconButton(
                       icon: Icon(Icons.check),
@@ -107,7 +119,12 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   );
                 } else {
                   return ListTile(
-                    title: Text(_tasks[index]),
+                    title: Text(
+                      _tasks[index],
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
