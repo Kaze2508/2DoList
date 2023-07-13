@@ -1,2 +1,2 @@
-# to-do-list
-mini javascript project.
+# 2dolist
+A side project create a task based app with BTS theme
