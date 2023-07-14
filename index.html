@@ -1,58 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>2DoList</title>
-        <!-- bootstrap 4 -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" 
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-        <!-- javascript -->
-        <script src="https://kit.fontawesome.com/b695317bbe.js" crossorigin="anonymous"></script>
-        <!-- css -->
-        <link rel="stylesheet" href="./css/style.css">
-        <link rel="shortcut icon" href="./img/icon.png" type="image/x-icon">
-    </head>
-    <body>
-            <div class="todo-list">
-                <!-- <h2>2Do List </h2> -->
-                <h2 class="colored-text"><span>2</span><span>D</span><span>o</span> <span>L</span><span>i</span><span>s</span><span>t</span></h2>
-            <div class="row add-wrap">
-  <input type="text" name="" id="input-box" placeholder="Add your text" onkeydown="handleKeyPress(event)">
-  <button onclick="addTask()">Add</button>
-</div>
-<ul id="list-container">
-</ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2DoList</title>
+    <!-- bootstrap 4 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" 
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- javascript -->
+    <script src="https://kit.fontawesome.com/b695317bbe.js" crossorigin="anonymous"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./img/icon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="todo-list">
+        <h2 class="colored-text"><span>2</span><span>D</span><span>o</span> <span>L</span><span>i</span><span>s</span><span>t</span></h2>
+        <div class="row add-wrap">
+            <input type="text" name="" id="input-box" placeholder="Add your text" onkeydown="handleKeyPress(event)">
+            <button onclick="addTask()">Add</button>
+        </div>
+        <ul id="list-container"></ul>
+    </div>
 
-<script>
-  function handleKeyPress(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault(); // Prevent form submission
-      addTask();
-    }
-  }
+    <footer class="footer">
+        <a href="https://github.com/lightraptor2310/to-do-list" target="_blank">Original Source from lightraptor2310</a>
+    </footer>
 
-  function addTask() {
-    var inputBox = document.getElementById("input-box");
-    var task = inputBox.value.trim();
+    <script>
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault(); // Prevent form submission
+                addTask();
+            }
+        }
 
-    if (task !== "") {
-      var listItem = document.createElement("li");
-      listItem.innerText = task;
+        function addTask() {
+            var inputBox = document.getElementById("input-box");
+            var task = inputBox.value.trim();
 
-      var listContainer = document.getElementById("list-container");
-      listContainer.appendChild(listItem);
+            if (task !== "") {
+                var listItem = document.createElement("li");
+                listItem.innerText = task;
 
-      inputBox.value = ""; // Clear the input box
-    }
-  }
-</script>
-        
+                var listContainer = document.getElementById("list-container");
+                listContainer.appendChild(listItem);
 
-        <!-- bootstrap 4-->
-        <script src="./js/index.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    </body>
+                inputBox.value = ""; // Clear the input box
+            }
+        }
+    </script>
+
+    <!-- bootstrap 4-->
+    <script src="./js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 </html>

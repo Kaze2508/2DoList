@@ -142,3 +142,18 @@ i.fa-regular.fa-trash-can {
 .colored-text span:nth-child(7n) {
       color: #8cde89;
     }
+
+.footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #bcc7f5;
+      color: #b983b8;
+      text-align: center;
+      padding: 10px;
+  }
+
+  .footer a {
+    color: #cca7cb;
+}
