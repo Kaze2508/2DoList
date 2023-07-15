@@ -12,7 +12,7 @@ function addTask() {
   task.className = "task";
 
   const li = document.createElement("li");
-  li.textContent = inputBox.value;
+  li.textContent = escapeHTML(inputBox.value);
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
@@ -93,3 +93,10 @@ document.addEventListener("keydown", function(event) {
     }
   }
 });
+
+// Utility function to escape HTML characters
+function escapeHTML(text) {
+  const element = document.createElement('div');
+  element.textContent = text;
+  return element.innerHTML;
+}
