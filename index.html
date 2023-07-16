@@ -9,12 +9,16 @@
     integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <!-- javascript -->
     <script src="https://kit.fontawesome.com/b695317bbe.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script> -->
+    
     <!-- css -->
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="shortcut icon" href="./img/icon.png" type="image/x-icon">
 </head>
 <body>
-    <noscript><p align-text="center">You haven't enabled JavaScript</p></noscript>
+    <noscript><p>You haven't enabled JavaScript</p></noscript>
     <div class="todo-list">
         <h2 class="colored-text"><span>2</span><span>D</span><span>o</span> <span>L</span><span>i</span><span>s</span><span>t</span></h2>
         <div class="row add-wrap">
@@ -28,29 +32,52 @@
         <a href="https://github.com/lightraptor2310/to-do-list" target="_blank">Original Source from lightraptor2310</a>
     </footer>
 
-    <script>
-        function handleKeyPress(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault(); // Prevent form submission
-                addTask();
-            }
+    <!-- <script>
+
+    var firebaseConfig = {
+  // Replace with your own Firebase configuration
+      apiKey: "AIzaSyAEZXIpmALUy-VhBPD15pEoR3DQsYuXR-I",
+      authDomain: "sample-fd33f.firebaseapp.com",
+      projectId: "sample-fd33f",
+      storageBucket: "sample-fd33f.appspot.com",
+      messagingSenderId: "780264166253",
+      appId: "1:780264166253:web:2c6cd0ec831505e82e4064",
+      databaseURL: "https://sample-fd33f-default-rtdb.firebaseio.com"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the Firebase Realtime Database
+    var db = firebase.database();
+
+    var tasksRef = db.ref().child("tasks");
+        
+    function handleKeyPress(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault(); // Prevent form submission
+            addTask();
         }
+    }
 
-        function addTask() {
-            var inputBox = document.getElementById("input-box");
-            var task = inputBox.value.trim();
+    function addTask() {
+      var inputBox = document.getElementById("input-box");
+      var task = inputBox.value.trim();
 
-            if (task !== "") {
-                var listItem = document.createElement("li");
-                listItem.innerText = task;
+      if (task !== "") {
+        // Write the new task to the database
+        tasksRef.push(task);
 
-                var listContainer = document.getElementById("list-container");
-                listContainer.appendChild(listItem);
+        // Create a list item for the task
+        var listItem = document.createElement("li");
+        listItem.innerText = task;
 
-                inputBox.value = ""; // Clear the input box
-            }
-        }
-    </script>
+        // Append the list item to the list container
+        var listContainer = document.getElementById("list-container");
+        listContainer.appendChild(listItem);
+      }
+    }
+    </script> -->
 
     <!-- bootstrap 4-->
     <script src="./js/index.js"></script>

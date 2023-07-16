@@ -2,6 +2,32 @@ const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 let editMode = false; // Variable to track edit mode
 
+
+var firebaseConfig = {
+  // Replace with your own Firebase configuration
+  apiKey: "AIzaSyAEZXIpmALUy-VhBPD15pEoR3DQsYuXR-I",
+  authDomain: "sample-fd33f.firebaseapp.com",
+  projectId: "sample-fd33f",
+  storageBucket: "sample-fd33f.appspot.com",
+  messagingSenderId: "780264166253",
+  appId: "1:780264166253:web:2c6cd0ec831505e82e4064",
+  databaseURL: "https://sample-fd33f-default-rtdb.firebaseio.com"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the Firebase Realtime Database
+var db = firebase.database();
+
+var tasksRef = db.ref().child("tasks");
+
+function handleKeyPress(event) {
+  if (event.keyCode === 13) {
+      event.preventDefault(); // Prevent form submission
+      addTask();
+  }
+}
+
 function addTask() {
   if (inputBox.value === '') {
     alert("You must write something!");
@@ -10,6 +36,24 @@ function addTask() {
 
   const task = document.createElement("div");
   task.className = "task";
+  var text = document.getElementById("input-box").value;
+
+  var newKey = db.ref().push().key;
+
+  // Create a new data object
+  var newData = {
+    text: text
+  };
+
+  // Save the new data to the database
+  db.ref('texts/' + newKey).set(newData)
+    // .then(function() {
+    //   alert("Text saved successfully!");
+    //   document.getElementById("textInput").value = "";
+    // })
+    // .catch(function(error) {
+    //   alert("Error saving text: " + error);
+    // });
 
   const li = document.createElement("li");
   li.textContent = escapeHTML(inputBox.value);
