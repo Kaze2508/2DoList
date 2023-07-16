@@ -161,6 +161,16 @@ window.onload = function() {
     });
 };
 
+window.addEventListener("beforeunload", function() {
+  tasksRef.remove()
+    .then(function() {
+      console.log("Tasks node deleted successfully!");
+    })
+    .catch(function(error) {
+      console.log("Error deleting tasks node: " + error);
+    });
+});
+
 function handleKeyPress(event) {
   if (event.keyCode === 13) {
     event.preventDefault(); // Prevent form submission
