@@ -151,7 +151,15 @@ var db = firebase.database();
 
 var tasksRef = db.ref().child("tasks");
 
-
+window.onload = function() {
+  tasksRef.remove()
+    .then(function() {
+      console.log("Tasks node deleted successfully!");
+    })
+    .catch(function(error) {
+      console.log("Error deleting tasks node: " + error);
+    });
+};
 
 function handleKeyPress(event) {
   if (event.keyCode === 13) {
