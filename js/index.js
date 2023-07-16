@@ -38,7 +38,7 @@ function addTask() {
   task.className = "task";
   var text = document.getElementById("input-box").value;
 
-  var newKey = db.ref().push().key;
+  // var newKey = db.ref().push().key;
 
   // Create a new data object
   var newData = {
@@ -46,7 +46,8 @@ function addTask() {
   };
 
   // Save the new data to the database
-  db.ref('texts/' + newKey).set(newData)
+  // db.ref('texts/' + newKey).set(newData)
+  db.ref('tasks/').set(newData)
     // .then(function() {
     //   alert("Text saved successfully!");
     //   document.getElementById("textInput").value = "";

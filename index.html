@@ -32,53 +32,6 @@
         <a href="https://github.com/lightraptor2310/to-do-list" target="_blank">Original Source from lightraptor2310</a>
     </footer>
 
-    <!-- <script>
-
-    var firebaseConfig = {
-  // Replace with your own Firebase configuration
-      apiKey: "AIzaSyAEZXIpmALUy-VhBPD15pEoR3DQsYuXR-I",
-      authDomain: "sample-fd33f.firebaseapp.com",
-      projectId: "sample-fd33f",
-      storageBucket: "sample-fd33f.appspot.com",
-      messagingSenderId: "780264166253",
-      appId: "1:780264166253:web:2c6cd0ec831505e82e4064",
-      databaseURL: "https://sample-fd33f-default-rtdb.firebaseio.com"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // Get a reference to the Firebase Realtime Database
-    var db = firebase.database();
-
-    var tasksRef = db.ref().child("tasks");
-        
-    function handleKeyPress(event) {
-        if (event.keyCode === 13) {
-            event.preventDefault(); // Prevent form submission
-            addTask();
-        }
-    }
-
-    function addTask() {
-      var inputBox = document.getElementById("input-box");
-      var task = inputBox.value.trim();
-
-      if (task !== "") {
-        // Write the new task to the database
-        tasksRef.push(task);
-
-        // Create a list item for the task
-        var listItem = document.createElement("li");
-        listItem.innerText = task;
-
-        // Append the list item to the list container
-        var listContainer = document.getElementById("list-container");
-        listContainer.appendChild(listItem);
-      }
-    }
-    </script> -->
-
     <!-- bootstrap 4-->
     <script src="./js/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
